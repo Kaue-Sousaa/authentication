@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +31,7 @@ public class ConfiguracoesSeguranca {
         return http
                 .authorizeHttpRequests(
                         req -> {
-                            req.requestMatchers("/login", "/atualizar-token", "/registrar", "verificar-conta").permitAll();
+                            req.requestMatchers("/login/**", "/atualizar-token", "/registrar", "/verificar-conta").permitAll();
 
                             req.requestMatchers(HttpMethod.GET, "/cursos").permitAll();
                             req.requestMatchers(HttpMethod.GET, "/topicos/**").permitAll();
@@ -50,7 +51,7 @@ public class ConfiguracoesSeguranca {
                         }
                 )
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(filtroTokenAcesso, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

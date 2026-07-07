@@ -1,3 +1,20 @@
 spring:
   application:
     name: authentication
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/forum_hub?createDatabaseIfNotExist=true
+    username: forumhubusername
+    password: forumhubpassword
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
