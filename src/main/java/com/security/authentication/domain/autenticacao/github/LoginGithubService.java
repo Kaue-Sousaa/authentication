@@ -1,5 +1,6 @@
 package com.security.authentication.domain.autenticacao.github;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,12 @@ import java.util.Objects;
 @Service
 public class LoginGithubService {
 
-    private static final String clientId = "Ov23lin9sYziy9f7rUEI";
-    private static final String clientSecret = "0d06623b67e37a69669b103b4206acab3a8325e4";
+    @Value("github.oauth.clientId")
+    private String clientId;
+
+    @Value("github.oauth.clientSecret")
+    private String clientSecret;
+
     private static final String redirectUri = "http://localhost:8080/login/github/autorizado";
 
     private final RestClient restClient;
